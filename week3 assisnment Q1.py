@@ -9,6 +9,7 @@ Created on Tue Oct 10 13:34:53 2017
 
 from __future__ import division
 import numpy as np
+import matplotlib.pyplot as plt
 
 def genarray(y0,yN,N):
     #function to generate an array of y's
@@ -61,5 +62,22 @@ print speed(gradpres(0,1e6,10))
 #printing speed calculated analytically
 print speed(anagradpres(0,1e6,10))
 
+error = speed(gradpres(0,1e6,10)) - speed(anagradpres(0,1e6,10))
 
+print error
+
+plt.figure(1)
+plt.plot(genarray(0, 1e6, 10), speed(gradpres(0,1e6,10)))
+plt.plot(genarray(0, 1e6, 10), speed(lambda x: -200 * np.pi * np.sin( x * np.pi / (2.4 * 1e6))))
+plt.xlabel('Analytical solution for Wind speed (m/s)')
+plt.ylabel('Numerical solution for Wind speed (m/s)')
+plt.title('A comparison of analytical and numerical solutions for Windspeed (u)')
+plt.show()
+
+plt.figure(2)
+plt.plot(genarray(0, 1e6, 10), error)
+plt.xlabel('Values of y (m)')
+plt.ylabel('Size of error')
+plt.title('The error for each value of y')
+plt.show()
 
