@@ -12,6 +12,7 @@ import numpy as np
 
 def genarray(y0,yN,N):
     #function to generate an array of y's
+    #here ymin is y0 and ymax is yN
     n=int(N)
     dy=( float(yN) - float(y0) ) / float(n + 1)
     yarray=np.zeros(n)
@@ -19,4 +20,12 @@ def genarray(y0,yN,N):
         yarray[i] = y0 + i * dy
     return yarray
 
-print genarray(0,1e6,10)
+def pres(y):
+    pa=1e5
+    pb=200
+    L=2.4 * 1e6
+    p= pa + pb * np.cos( y * np.pi / L)
+    return p
+    
+print pres(genarray(0,1e6,10))
+
